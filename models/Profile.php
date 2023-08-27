@@ -65,8 +65,8 @@ class Profile {
             $this->account_id = $account_id;
 
             $query = 'SELECT p.firstname, p.secondname, p.lastname,
-                      p.picture, p.information, p.worktitle 
-                      FROM '.$this->table.' p WHERE account_id = :account_id';
+                      p.picture, p.information, p.worktitle, a.created_date, a.end_date 
+                      FROM '.$this->table.' p LEFT JOIN accounts a ON a.account_id = p.account_id WHERE p.account_id = :account_id';
 
             $profil = $this->connection->prepare($query);
             $profil->bindValue('account_id', $this->account_id);

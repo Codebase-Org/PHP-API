@@ -184,11 +184,9 @@ class Login {
      *     @OA\Response(response="404", description="Not Found"),
      * ),
      */
-    public function getLoginHistory($account_id, $from, $limit) {
+    public function getLoginHistory($account_id) {
         try {
             $this->account_id = $account_id;
-            $this->limit = $limit;
-            $this->page = $from;
 
             $query = 'SELECT 
                       loginhist_id, 
@@ -198,8 +196,6 @@ class Login {
                       account_id = :id 
                       ORDER BY 
                       login_time DESC 
-                      LIMIT 
-                      ' .$from. ', ' .$limit. '
                       ';
 
             $hist = $this->connection->prepare($query);

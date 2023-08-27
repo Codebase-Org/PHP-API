@@ -21,29 +21,16 @@ $login = new Login($db);
 
 if(isset($_GET['id'])) {
 
-    if(!isset($_GET['page'])) {
-        $page = 1;
-    } else {
-        $page = $_GET['page'];
-    }
-
-    $limit = 15;
-
-
-    $data = $login->getPages($_GET['id']);
+    $data = $login->getLoginHistory($_GET['id']);
 
 
     if($data->rowCount()) {
 
         $count = $data->rowCount();
-        $startingIndex = ($page - 1) * $limit;
-        $numOfPages = ceil($count / $limit);
 
-
-        $data1 = $login->getLoginHistory($_GET['id'], $startingIndex, $limit);
         $history = [];
 
-        while($row = $data1->fetch(PDO::FETCH_OBJ)) {
+        while($row = $data->fetch(PDO::FETCH_OBJ)) {
 
             //print_r($row);
 
@@ -72,9 +59,7 @@ if(isset($_GET['id'])) {
                 'login_date' => $login_date,
                 'login_time' => $login_time,
                 'logout_time' => $logout_time,
-                'online_time' => $online_time,
-                'total_pages' => $numOfPages
-
+                'online_time' => $online_time
             ];
         }
 

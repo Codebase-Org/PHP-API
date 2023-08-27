@@ -305,6 +305,65 @@ class Accounts {
         }
     }
 
+    public function accountExists($id) {
+        try {
+            $this->account_id = $id;
+            $query = 'SELECT role_id FROM '.$this->table.' WHERE account_id = :id';
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('id', $this->account_id);
+            if($stmt->execute()) {
+                return $stmt;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function checkRole($role_id) {
+        try {
+            $this->role_id = $role_id;
+            $query = 'SELECT role_name FROM roles WHERE role_id = :id';
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('id', $this->role_id);
+            if($stmt->execute()) {
+                return $stmt;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function clearLoginHistory($id) {
+        try {
+            $this->account_id = $id;
+            $query = 'DELETE FORM loginhistory WHERE account_id = :id';
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('id', $this->account_id);
+            if($stmt->execute()) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function deleteProfile($id) {
+        try {
+            $this->account_id = $id;
+            $query = 'DELETE FROM profile WHERE account_id = :id';
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('id', $this->account_id);
+            if($stmt->execute()) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
     /**
      * @OA\Get(

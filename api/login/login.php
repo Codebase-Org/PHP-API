@@ -9,10 +9,11 @@ define('SECRET_KEY', 'ThisketIsNotforEveryOneAtAll2023');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-//header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: *');
 header('Access-Control-Allow-Methods: *');
+//header('Content-Type: text/html');
 
 // Including required files
 include_once('../../config/Database.php');
@@ -73,7 +74,6 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
             $payload = [
                 'account_id' => $row->account_id,
                 'role' => $row->rolename,
-                'login_id' => $login_hist_id
             ];
 
         }
