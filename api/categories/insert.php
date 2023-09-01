@@ -20,32 +20,26 @@ $db = $database->connect();
 
 $cat = new Categories($db);
 
-$data = json_decode(file_get_contents('php://input'));
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if(count($_POST)) {
+    $ori_filename = $_FILES['file']['name'];
+    $targetPath = '../../assets/img/logo/';
+    $targetPath = $targetPath . $ori_filename;
 
-    $params = [
-        'catname' => $_POST['catname'],
-        'picture' => $_FILES['picture']
-    ];
+    if(move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
 
-    if($cat->insert($params)) {
-        echo json_encode(array('message' => 'Category '.$_POST['catname'].' has been created'));
+        $params = [
+            'catname' => $_POST['catname'],
+            'picture' => $_POST['picture']
+        ];
+
+        if($cat->insert($params)) {
+            $msg = 'Category and logo has been create and uploaded successfully.';
+        }
     } else {
-        echo json_encode(array('message' => 'Category '.$_POST['catname'].' Could not be created. Something went wrong!'));
+        $msg = 'Category and logo upload failed. Please try again.';
     }
 
-} else if(isset($data)) {
-
-    $params = [
-        'catname' => $data->catname,
-        'picture' => $data->picture
-    ];
-
-    if($cat->insert($params)) {
-        echo json_encode(array('message' => 'Category '.$data->catname.' has been created'));
-    } else {
-        echo json_encode(array('message' => 'Category '.$data->catname.' Could not be created. Something went wrong!'));
-    }
-
+    echo json_encode(['message' => $msg]);
 }
+

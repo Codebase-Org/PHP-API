@@ -20,6 +20,8 @@ $db = $database->connect();
 
 $cat = new Categories($db);
 
+$type_id = $_GET['type_id'];
+
 $data = $cat->get_categories();
 
 if($data->rowCount()) {
@@ -27,7 +29,7 @@ if($data->rowCount()) {
     $categories = [];
 
     while($row = $data->fetch(PDO::FETCH_OBJ)) {
-        $postsData = $cat->count_posts_categories($row->category_id);
+        $postsData = $cat->count_posts_categories($row->category_id, $type_id);
 
         $categories[] = [
             'category_id' => $row->category_id,

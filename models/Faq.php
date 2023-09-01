@@ -8,9 +8,6 @@ class Faq {
     public $faq_id;
     public $faq_title;
     public $faq_content;
-    public $faq_created_date;
-    public $faq_updated_date;
-
     private $connection;
     private $table = 'faq';
 
@@ -50,8 +47,7 @@ class Faq {
 
             $query = 'INSERT INTO ' .$this->table.' SET
                       faq_title = :faq_title, 
-                      faq_content = :faq_content,
-                      faq_created_date = CURRENT_TIME';
+                      faq_content = :faq_content';
 
             $faq = $this->connection->prepare($query);
             $faq->bindValue('faq_title', $this->faq_title);
@@ -83,8 +79,8 @@ class Faq {
             $query = 'SELECT faq_id, 
                       faq_title, 
                       faq_content, 
-                      faq_created_date, 
-                      faq_updated_date FROM ' .$this->table . ' ORDER BY faq_title ASC';
+                      faq_time 
+                      FROM ' .$this->table . ' ORDER BY faq_title ASC';
 
             $faq = $this->connection->prepare($query);
             $faq->execute();
@@ -122,8 +118,8 @@ class Faq {
             $query = 'SELECT faq_id,
                       faq_title,
                       faq_content,
-                      faq_created_date,
-                      faq_updtaed_date FROM ' . $this->table . ' 
+                      faq_time
+                      FROM ' . $this->table . ' 
                       WHERE faq_id = :id';
 
             $faq = $this->connection->prepare($query);
@@ -175,7 +171,6 @@ class Faq {
             $query = 'UPDATE ' . $this->table . ' SET 
                      faq_title = :faq_title,
                      faq_content = :faq_content,
-                     faq_updated_date = CURRENT_TIME
                      WHERE faq_id = :faq_id
                      ';
             $faq = $this->connection->prepare($query);
