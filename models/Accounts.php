@@ -386,4 +386,22 @@ class Accounts {
             echo $e->getMessage();
         }
     }
+
+    public function studentCounter($role_id) {
+        try {
+
+            $this->role_id = $role_id;
+
+            $query = 'SELECT * FROM ' .$this->table. ' WHERE role_id = :role_id';
+
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('role_id', $this->role_id);
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

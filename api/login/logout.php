@@ -24,19 +24,21 @@ $data = json_decode(file_get_contents('php://input'));
 if(isset($data)) {
 
     //print_r($data);
-
-    if($login->logoutHistory($data->loginID)) {
-        echo json_encode(array('message' => 'You are now logged out'));
-    } else {
-        echo json_encode(array('message' => 'You are already logged out.'));
+    if($login->updateOnlineStatus($data->account_id, 0)) {
+        if($login->logoutHistory($data->loginID)) {
+            echo json_encode(array('message' => 'You are now logged out'));
+        } else {
+            echo json_encode(array('message' => 'You are already logged out.'));
+        }
     }
 
-} else if(isset($_GET['loginID'])) {
+} else if(isset($_GET['loginID']) && isset($_GET['id'])) {
 
-    if($login->logoutHistory($_GET['loginID'])) {
-        echo json_encode(array('message' => 'You are now logged out'));
-    } else {
-        echo json_encode(array('message' => 'You are already logged out.'));
+    if ($login->updateOnlineStatus($_GET['id'], 0)) {
+        if($login->logoutHistory($_GET['loginID'])) {
+            echo json_encode(array('message' => 'You are now logged out'));
+        } else {
+            echo json_encode(array('message' => 'You are already logged out.'));
+        }
     }
-
 }

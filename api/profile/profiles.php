@@ -39,6 +39,7 @@ if ($data->rowCount()) {
                     'username' => openssl_decrypt($row->username, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                     'email' => openssl_decrypt($row->email, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                     'status' => 'true',
+                    'onlineStatus' => $row->onlineStatus,
                     'profile_id' => $row1->profile_id
                 ];
 
@@ -51,7 +52,8 @@ if ($data->rowCount()) {
                 'role' => $row->rolename,
                 'username' => openssl_decrypt($row->username, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'email' => openssl_decrypt($row->email, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
-                'status' => 'false'
+                'status' => 'false',
+                'onlineStatus' => $row->onlineStatus,
             ];
 
         }

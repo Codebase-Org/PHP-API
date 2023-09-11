@@ -43,13 +43,14 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
 
         while($row = $data->fetch(PDO::FETCH_OBJ)) {
 
-            //print_r($row);
-            $login_hist_id = $login->loginHistory($row->account_id);
+            if($login->updateOnlineStatus($row->account_id, 1)) {
+                $login_hist_id = $login->loginHistory($row->account_id);
 
-            $payload = [
-                'account_id' => $row->account_id,
-                'role' => $row->rolename,
-            ];
+                $payload = [
+                    'account_id' => $row->account_id,
+                    'role' => $row->rolename,
+                ];
+            }
 
         }
 

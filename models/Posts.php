@@ -93,4 +93,22 @@ class Posts {
             echo $e->getMessage();
         }
     }
+
+    public function counter($type_id) {
+        try {
+
+            $this->post_type_id = $type_id;
+
+            $query = 'SELECT * FROM ' . $this->posts_table . ' WHERE post_type_id = :post_type_id';
+
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('post_type_id', $this->post_type_id);
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

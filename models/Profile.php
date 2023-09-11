@@ -10,6 +10,8 @@ class Profile {
     public $picture;
     public $information;
     public $worktitle;
+    public $instuctor_id;
+    public $role_id;
 
     private $connection;
     private $table = 'profile';
@@ -65,7 +67,7 @@ class Profile {
             $this->account_id = $account_id;
 
             $query = 'SELECT p.firstname, p.secondname, p.lastname,
-                      p.picture, p.information, p.worktitle, a.created_date, a.end_date 
+                      p.picture, p.information, p.worktitle, a.created_date, a.end_date, a.email, a.onlineStatus 
                       FROM '.$this->table.' p LEFT JOIN accounts a ON a.account_id = p.account_id WHERE p.account_id = :account_id';
 
             $profil = $this->connection->prepare($query);
@@ -78,6 +80,26 @@ class Profile {
             echo $e->getMessage();
         }
 
+    }
+
+    public function selectTeam($instuctor_id, $role_id) {
+        try {
+
+            $this->instuctor_id = $instuctor_id;
+            $this->role_id = $role_id;
+
+            $query = 'SELECT p.firstname, p.secondname, p.lastname, a.username, a.email, a.onlineStatus FROM ' . $this->table . ' p LEFT JOIN accounts a ON a.account_id = p.account_id WHERE instructor_id = :instructor_id AND role_id = :role_id';
+
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('instructor_id', $this->instuctor_id);
+            $stmt->bindValue('role_id', $this->role_id);
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function checkIfProfileExist($account_id) {
@@ -106,7 +128,7 @@ class Profile {
         try {
 
             $query = 'SELECT r.role_name as rolename,
-            a.role_id, a.username, a.account_id, a.email
+            a.role_id, a.username, a.account_id, a.email, a.onlineStatus
             FROM accounts a LEFT JOIN roles r ON
             r.role_id = a.role_id';
             $profil = $this->connection->prepare($query);

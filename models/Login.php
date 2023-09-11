@@ -10,9 +10,9 @@ class Login {
     public $account_id;
     public $username;
     public $password;
-
     public $limit;
     public $page;
+    public $onlineStatus;
 
     private $connection;
     private $table = 'accounts';
@@ -231,6 +231,29 @@ class Login {
             $hist->execute();
 
             return $hist;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function updateOnlineStatus($account_id, $onlineStatus) {
+        try {
+
+            $this->account_id = $account_id;
+            $this->onlineStatus = $onlineStatus;
+
+            $query = 'UPDATE ' .$this->table. ' SET onlineStatus = :onlineStatus WHERE account_id = :account_id';
+
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue('account_id', $this->account_id);
+            $stmt->bindValue('onlineStatus', $this->onlineStatus);
+
+            if($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

@@ -34,8 +34,10 @@ if(isset($_GET['id'])) {
                 'firstname' => openssl_decrypt($row->firstname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'secondname' => openssl_decrypt($row->secondname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'lastname' => openssl_decrypt($row->lastname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
+                'email' => openssl_decrypt($row->email, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'worktitle' => $row->worktitle,
                 'information' => $row->information,
+                'onlineStatus' => $row->onlineStatus,
                 'created_date' => date("d.m.Y", strtotime($row->created_date)),
                 'end_date' => date("d.m.Y", strtotime($row->end_date))
             ];
