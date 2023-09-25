@@ -5,7 +5,7 @@ class Database {
     private $host = 'localhost';
     private $database = 'codebase';
     private $username = 'codebase';
-    private $password = "Passw0rd.";
+    private $password = "Passw0rd";
     private $connection = null;
 
     public function connect() {

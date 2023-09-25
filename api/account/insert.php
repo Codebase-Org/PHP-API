@@ -32,30 +32,30 @@ if(count($_POST)) {
     ];
 
     if($account->insert($params)) {
-        $to = $_POST['email'];
-        $subject = "Welcome to Codebase";
-        $message = '
-            Hello '.$_POST['username'].'<br><br>
-            Welcome to Codebase forum, which is a tool for students. Where you can search for help, or you can help others.<br><br>
-            Your login information:<br><br>
-            Username: '.$_POST['email'].'<br>
-            Password: '.$_POST['password'].'<br>
-            <br>
-            Go to the website by clicking on the link below.<br>
-            <a href="192.168.22.21">Codebase website click here</a><br>
-            <br>
-            Greetings<br>
-            Codebase Teamet. 
-        ';
-        $headers = "From: info@localhost.local" . "\r\n" .
-            "Reply-To: No-Reply" . "\r\n" .
-            "X-Mailer: PHP/" . phpversion();
-        if(mail($to, $subject, $message, $headers)) {
-            $msg = "Mail has been sent to {$data->email}";
-        } else {
-            $msg = "Mail could not be send.";
-        }
-        echo json_encode(array('message' => 'Account has been added successfully. and mail has been sent to ' . $_POST['email'] . '.'));
+//        $to = $_POST['email'];
+//        $subject = "Welcome to Codebase";
+//        $message = '
+//            Hello '.$_POST['username'].'<br><br>
+//            Welcome to Codebase forum, which is a tool for students. Where you can search for help, or you can help others.<br><br>
+//            Your login information:<br><br>
+//            Username: '.$_POST['email'].'<br>
+//            Password: '.$_POST['password'].'<br>
+//            <br>
+//            Go to the website by clicking on the link below.<br>
+//            <a href="192.168.22.21">Codebase website click here</a><br>
+//            <br>
+//            Greetings<br>
+//            Codebase Teamet.
+//        ';
+//        $headers = "From: info@localhost.local" . "\r\n" .
+//            "Reply-To: No-Reply" . "\r\n" .
+//            "X-Mailer: PHP/" . phpversion();
+//        if(mail($to, $subject, $message, $headers)) {
+//            $msg = "Mail has been sent to {$data->email}";
+//        } else {
+//            $msg = "Mail could not be send.";
+//        }
+//        echo json_encode(array('message' => 'Account has been added successfully. and mail has been sent to ' . $_POST['email'] . '.'));
     } else {
         echo json_encode(array('message' => 'Account has not been added, something went wrong.'));
     }
@@ -69,30 +69,30 @@ if(count($_POST)) {
     ];
 
     if($account->insert($params)) {
-        $to = $data->email;
-        $subject = "Welcome to Codebase";
-        $message = '
-            Hello '.$data->username.'<br><br>
-            Welcome to Codebase forum, which is a tool for students. Where you can search for help, or you can help others.<br><br>
-            Your login information:<br><br>
-            Username: '.$data->email.'<br>
-            Password: '.$data->password.'<br>
-            <br>
-            Go to the website by clicking on the link below.<br>
-            <a href="192.168.22.21">Codebase website click here</a><br>
-            <br>
-            Greetings<br>
-            Codebase Teamet. 
-        ';
-        $headers = "From: info@localhost.local" . "\r\n" .
-                   "Reply-To: No-Reply" . "\r\n" .
-                   "X-Mailer: PHP/" . phpversion();
-        if(mail($to, $subject, $message, $headers)) {
-            $msg = "Mail has been sent to {$data->email}";
-        } else {
-            $msg = "Mail could not be send.";
-        }
-        echo json_encode(array('message' => 'Account has been added successfully.', 'email' => $msg));
+//        $to = $data->email;
+//        $subject = "Welcome to Codebase";
+//        $message = '
+//            Hello '.$data->username.'<br><br>
+//            Welcome to Codebase forum, which is a tool for students. Where you can search for help, or you can help others.<br><br>
+//            Your login information:<br><br>
+//            Username: '.$data->email.'<br>
+//            Password: '.$data->password.'<br>
+//            <br>
+//            Go to the website by clicking on the link below.<br>
+//            <a href="192.168.22.21">Codebase website click here</a><br>
+//            <br>
+//            Greetings<br>
+//            Codebase Teamet.
+//        ';
+//        $headers = "From: info@localhost.local" . "\r\n" .
+//                   "Reply-To: No-Reply" . "\r\n" .
+//                   "X-Mailer: PHP/" . phpversion();
+//        if(mail($to, $subject, $message, $headers)) {
+//            $msg = "Mail has been sent to {$data->email}";
+//        } else {
+//            $msg = "Mail could not be send.";
+//        }
+//        echo json_encode(array('message' => 'Account has been added successfully.', 'email' => $msg));
     } else {
         echo json_encode(array('message' => 'Account has not been added, something went wrong.'));
     }

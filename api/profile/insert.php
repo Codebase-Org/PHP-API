@@ -19,22 +19,31 @@ $db = $database->connect();
 
 $profil = new Profile($db);
 
-$data = json_decode(file_get_contents('php://input'));
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $ori_fname = $_FILES['file']['name'];
+    $targetPath = '../../assets/pictures/uploads/';
+    $actual_fname = $_FILES['file']['name'];
+    $targetPath = $targetPath . $ori_fname;
 
-if(isset($data)) {
+    if(move_uploaded_file($_FILES['file']['tmp_name'], $targetPath)) {
+        $params = [
+            'firstname' => openssl_encrypt($_POST['firstname'], OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
+            'secondname' => openssl_encrypt($_POST['secondname'], OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
+            'lastname' => openssl_encrypt($_POST['lastname'], OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
+            'worktitle' => $_POST['worktitle'],
+            'information' => $_POST['information'],
+            'account_id' => $_POST['account_id'],
+            'education' => $_POST['education'],
+            'internship' => $_POST['internship'],
+            'picture' => $_POST['picture'],
+            'location' => $_POST['location'],
+            'birthday' => $_POST['birthday']
+        ];
 
-    $params = [
-        'firstname' => openssl_encrypt($data->firstname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
-        'secondname' => openssl_encrypt($data->secondname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
-        'lastname' => openssl_encrypt($data->lastname, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
-        'worktitle' => $data->worktitle,
-        'information' => $data->information,
-        'account_id' => $data->account_id
-    ];
-
-    if($profil->insert($params)) {
-        echo json_encode(array('message' => 'Profile has been created'));
-    } else {
-        echo json_encode(array('message' => 'Profile has not been created, something went wrong'));
+        if($profil->insert($params)) {
+            echo json_encode(array('message' => 'Profile has been created'));
+        } else {
+            echo json_encode(array('message' => 'Profile has not been created, something went wrong'));
+        }
     }
 }

@@ -49,6 +49,7 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
                 $payload = [
                     'account_id' => $row->account_id,
                     'role' => $row->rolename,
+                    'role_id' => $row->role_id
                 ];
             }
 
@@ -75,6 +76,7 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
             $payload = [
                 'account_id' => $row->account_id,
                 'role' => $row->rolename,
+                'role_id' => $row->role_id
             ];
 
         }

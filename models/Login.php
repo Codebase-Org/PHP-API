@@ -61,7 +61,8 @@ class Login {
 
             $query = 'SELECT
                       r.role_name as rolename,
-                      a.account_id
+                      a.account_id,
+                      r.role_id
                       FROM '.$this->table.' a LEFT JOIN
                       roles r ON r.role_id = a.role_id WHERE
                       a.email = :username AND a.password = :password

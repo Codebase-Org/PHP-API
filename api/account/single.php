@@ -36,6 +36,7 @@ if(isset($_GET['id'])) {
                 'id' => $row->account_id,
                 'username' => openssl_decrypt($row->username, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'role' => $row->rolename,
+                'role_id' => $row->role_id,
                 'email' => openssl_decrypt($row->email, OPENSSL_CIPHERING, OPENSSL_ENCRYP_KEY, OPENSSL_OPTIONS, OPENSSL_ENCRYPT_IV),
                 'created_date' => $row->created_date,
                 'end_date' => $row->end_date

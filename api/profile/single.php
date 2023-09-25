@@ -6,8 +6,8 @@ ini_set('display_errors', 1);
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: *');
-header('Content-Type: text/html');
-//header('Access-Control-Allow-Methods: *');
+//header('Content-Type: text/html');
+header('Access-Control-Allow-Methods: *');
 
 // Including required files
 include_once('../../config/Database.php');
@@ -38,8 +38,15 @@ if(isset($_GET['id'])) {
                 'worktitle' => $row->worktitle,
                 'information' => $row->information,
                 'onlineStatus' => $row->onlineStatus,
+                'picture' => $row->picture,
+                'education' => $row->education,
+                'internship' => $row->internship,
+                'birthday' => date("Y-m-d", strtotime($row->birthday)),
+                'location' => $row->location,
                 'created_date' => date("d.m.Y", strtotime($row->created_date)),
-                'end_date' => date("d.m.Y", strtotime($row->end_date))
+                'end_date' => date("d.m.Y", strtotime($row->end_date)),
+                'account_id' => $row->account_id,
+                'profile_id' => $row->profile_id
             ];
 
         }

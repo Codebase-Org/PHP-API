@@ -24,9 +24,10 @@ $data = json_decode(file_get_contents('php://input'));
 if(count($_POST)) {
     $params = [
         'account_id' => $_POST['account_id'],
-        'email' => $_POST['email'],
         'role_id' => $_POST['role_id'],
+        'email' => $_POST['email'],
         'start_date' => $_POST['start_date'],
+        'instructor_id' => $_POST['instructor_id'],
         'end_date' => $_POST['end_date'],
     ];
 
@@ -38,9 +39,10 @@ if(count($_POST)) {
 } else if(isset($data)) {
     $params = [
         'account_id' => $data->account_id,
-        'email' => $data->email,
         'role_id' => $data->role_id,
+        'email' => $data->email,
         'start_date' => $data->start_date,
+        'instructor_id' => $data->instructor_id,
         'end_date' => $data->end_date,
     ];
 

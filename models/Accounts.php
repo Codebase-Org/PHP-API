@@ -15,6 +15,7 @@ class Accounts {
     public $lastname;
     public $picture;
     public $role_id;
+    public $instructor_id;
     public $role_name;
     public $information;
     public $worktitle;
@@ -157,7 +158,9 @@ class Accounts {
                       a.username, 
                       a.email, 
                       a.created_date, 
-                      a.end_date FROM ' . $this->table . ' a 
+                      a.end_date,
+                      a.role_id
+                      FROM ' . $this->table . ' a 
                       LEFT JOIN roles r 
                       ON r.role_id = a.role_id WHERE a.account_id = :id LIMIT 0,1';
 
@@ -239,22 +242,21 @@ class Accounts {
     public function update($params) {
         try{
             $this->account_id = $params['account_id'];
-            $this->email = $params['email'];
             $this->role_id = $params['role_id'];
-            $this->created_date = $params['created_date'];
+            $this->email    = $params['email'];
+            $this->instructor_id = $params['instructor_id'];
+            $this->start_date = $params['start_date'];
             $this->end_date = $params['end_date'];
 
             $query = 'UPDATE ' .$this->table. ' SET 
-            email = :email,
             role_id = :role_id,
-            created_date = :created_date,
+            instructor_id = :instructor_id,
             end_date = :end_date WHERE account_id = :id';
 
             $account = $this->connection->prepare($query);
             $account->bindValue('id', $this->account_id);
-            $account->bindValue('email', $this->email);
             $account->bindValue('role_id', $this->role_id);
-            $account->bindValue('created_date', $this->created_date);
+            $account->bindValue('instructor_id', $this->instructor_id);
             $account->bindValue('end_date', $this->end_date);
 
             if($account->execute()) {
