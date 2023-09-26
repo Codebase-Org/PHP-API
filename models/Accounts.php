@@ -119,7 +119,8 @@ class Accounts {
                       a.account_id,
                       a.username, 
                       a.email, 
-                      a.created_date, 
+                      a.created_date,
+                      a.onlineStatus,
                       a.end_date FROM ' . $this->table . ' a 
                       LEFT JOIN roles r 
                       ON r.role_id = a.role_id ORDER BY a.username ASC';
@@ -398,6 +399,21 @@ class Accounts {
 
             $stmt = $this->connection->prepare($query);
             $stmt->bindValue('role_id', $this->role_id);
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function getOnline() {
+        try {
+
+            $query = 'SELECT onlineStatus FROM ' . $this->table . ' WHERE onlineStatus = 1';
+
+            $stmt = $this->connection->prepare($query);
             $stmt->execute();
 
             return $stmt;

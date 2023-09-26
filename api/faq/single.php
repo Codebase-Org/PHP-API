@@ -29,12 +29,11 @@ if(isset($_GET['id'])) {
 
         while($row = $data->fetch(PDO::FETCH_OBJ)) {
 
-            $faqs[$row->faq_id] = [
+            $faqs = [
                 'faq_id' => $row->faq_id,
                 'faq_title' => $row->faq_title,
                 'faq_content' => $row->faq_content,
-                'faq_created_date' => $row->faq_created_date,
-                'faq_updated_date' => $row->faq_updated_date
+                'faq_time' => $row->faq_time
             ];
 
         }

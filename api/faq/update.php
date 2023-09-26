@@ -29,7 +29,7 @@ if(count($_POST)) {
         'faq_content' => $_POST['faq_content']
     ];
 
-    if($faq->insert($params)) {
+    if($faq->update($params)) {
         echo json_encode(array('message' => 'Faq post has been added successfully'));
     } else {
         echo json_encode(array('message' => 'Faq post could not be added'));
@@ -43,7 +43,7 @@ if(count($_POST)) {
         'faq_content' => $data->faq_content
     ];
 
-    if($faq->insert($params)) {
+    if($faq->update($params)) {
         echo json_encode(array('message' => 'Faq post has been added successfully'));
     } else {
         echo json_encode(array('message' => 'Faq post could not be added'));
