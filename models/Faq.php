@@ -9,7 +9,7 @@ class Faq {
     public $faq_title;
     public $faq_content;
     private $connection;
-    private $table = 'faq';
+    private $table = 'faqs';
 
     public function __construct($db) {
         $this->connection = $db;
@@ -170,9 +170,8 @@ class Faq {
 
             $query = 'UPDATE ' . $this->table . ' SET 
                      faq_title = :faq_title,
-                     faq_content = :faq_content,
-                     WHERE faq_id = :faq_id
-                     ';
+                     faq_content = :faq_content
+                     WHERE faq_id = :faq_id';
             $faq = $this->connection->prepare($query);
 
             $faq->bindValue('faq_title', $this->faq_title);

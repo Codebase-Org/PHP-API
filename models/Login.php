@@ -16,7 +16,7 @@ class Login {
 
     private $connection;
     private $table = 'accounts';
-    private $tableHist = 'loginhistory';
+    private $tableHist = 'login_histories';
 
     public function __construct($db) {
         $this->connection = $db;

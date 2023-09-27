@@ -21,7 +21,7 @@ class Profile
     public $birthday;
 
     private $connection;
-    private $table = 'profile';
+    private $table = 'profiles';
 
     public function __construct($db)
     {

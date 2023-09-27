@@ -12,7 +12,7 @@ class Motd {
     public $motd_date;
 
     private $connection;
-    private $table = 'motd';
+    private $table = 'motds';
 
     public function __construct($db) {
         $this->connection = $db;
